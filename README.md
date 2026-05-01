@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/6F6ro7qq)
 # Domaći zadatak 04 Proširenje i orkestracije mikroservisne arhitekture
 
 Potrebno je unaprediti koncept loose coupling-a u distribuiranoj mikroservisnoj arhitekturi, primeniti standarde za konfiguraciju web aplikacije i dokerizovati aplikaciju u celosti. 
