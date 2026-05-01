@@ -1,0 +1,72 @@
+services:
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - mikroservisi-network
+
+  inventory:
+    build: ./inventory
+    container_name: inventory
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./inventory/.env
+    depends_on:
+      - redis
+    networks:
+      - mikroservisi-network
+
+  inventory-consumer:
+    build: ./inventory
+    container_name: inventory-consumer
+    command: python consumer.py
+    env_file:
+      - ./inventory/.env
+    depends_on:
+      - redis
+      - inventory
+    networks:
+      - mikroservisi-network
+
+  payment:
+    build: ./payment
+    container_name: payment
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./payment/.env
+    depends_on:
+      - redis
+      - inventory
+    networks:
+      - mikroservisi-network
+
+  payment-consumer:
+    build: ./payment
+    container_name: payment-consumer
+    command: python consumer.py
+    env_file:
+      - ./payment/.env
+    depends_on:
+      - redis
+      - payment
+    networks:
+      - mikroservisi-network
+
+  notification:
+    build: ./notification
+    container_name: notification
+    env_file:
+      - ./notification/.env
+    depends_on:
+      - redis
+    networks:
+      - mikroservisi-network
+
+networks:
+  mikroservisi-network:
+    driver: bridge
